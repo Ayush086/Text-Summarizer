@@ -4,7 +4,7 @@ import logging # to log all info during runtime
 
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s]: %(message)s')
 
-project_name = "text-summarizer"
+project_name = "textSummarizer"
 
 files_list = [ 
     ".github/workflows/.gitkeep", # used to write yaml file
