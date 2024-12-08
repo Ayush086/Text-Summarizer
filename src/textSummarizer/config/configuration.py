@@ -2,7 +2,8 @@
 from src.textSummarizer.constants import *
 from src.textSummarizer.utils.common import read_yaml, create_directories
 from src.textSummarizer.entity import (DataIngestionConfig,
-                                       DataValidationConfig)
+                                       DataValidationConfig,
+                                       DataTransformationConfig)
 
 class ConfigurationManager:
     def __init__(
@@ -44,3 +45,39 @@ class ConfigurationManager:
         )
 
         return data_validation_config
+
+
+    # def get_data_transformation_config(self) -> DataTransformationConfig:
+    #     config = self.config.data_transformation 
+
+    #     create_directories([self.config.root_dir])
+
+    #     data_transformation_config = DataTransformationConfig(
+    #         root_dir = config.root_dir,
+    #         data_path = config.data_path,
+    #         tokenizer_name = config.tokenizer_name
+    #     )
+
+    #     return data_transformation_config
+
+    # above code wasn't working so added some validation and now it's working
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        config = self.config.get("data_transformation", {})
+
+        if not config:
+            raise ValueError("The 'data_transformation' section is missing in the config file")
+
+        root_dir = config.get("root_dir")
+        data_path = config.get("data_path")
+        tokenizer_name = config.get("tokenizer_name")
+
+        if not all([root_dir, data_path, tokenizer_name]):
+            raise ValueError("Missing one or more keys in 'data_transformation'")
+
+        create_directories([root_dir])
+
+        return DataTransformationConfig(
+            root_dir=Path(root_dir),
+            data_path=Path(data_path),
+            tokenizer_name=tokenizer_name
+        )
