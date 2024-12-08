@@ -23,3 +23,17 @@ data_transformation:
 # tokenizer - divides text into smaller units (tokens), mainly used to transform raw data into structured format
 
 
+model_trainer:
+  root_dir: artifacts/model_trainer
+  data_path: artifacts/data_transformation/samsum_dataset
+  model_ckpt: google/pegasus-cnn_dailymail
+
+
+# evaluation techniques will return metrics defining the model's accuracy
+model_evaluation:
+  root_dir: artifacts/model_evaluation
+  data_path: artifacts/data_transformation/samsum_dataset
+  model_path: artifacts/model_trainer/pegasus-samsum-model
+  tokenizer_path: artifacts/model_trainer/pegasus-tokenizer
+  metric_file_name: artifacts/model_evaluation/metrics.csv
+
