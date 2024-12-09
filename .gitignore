@@ -163,3 +163,4 @@ cython_debug/
 artifacts/*
 Model_imports_usecases.txt
 Text_Summarizer_Imports_Use_Case.md
+.github/workflows/main.yaml
